@@ -17,12 +17,13 @@ const (
 )
 
 type config struct {
-	Root   string   `toml:"root"`
-	TmpDir string   `toml:"tmp_dir"`
-	Build  cfgBuild `toml:"build"`
-	Color  cfgColor `toml:"color"`
-	Log    cfgLog   `toml:"log"`
-	Misc   cfgMisc  `toml:"misc"`
+	Root    string   `toml:"root"`
+	TmpDir  string   `toml:"tmp_dir"`
+	TmpPath string   `toml:"tmp_path"`
+	Build   cfgBuild `toml:"build"`
+	Color   cfgColor `toml:"color"`
+	Log     cfgLog   `toml:"log"`
+	Misc    cfgMisc  `toml:"misc"`
 }
 
 type cfgBuild struct {
@@ -196,6 +197,9 @@ func (c *config) binPath() string {
 }
 
 func (c *config) tmpPath() string {
+	if len(c.TmpPath) > 0 {
+		return c.TmpPath
+	}
 	return filepath.Join(c.Root, c.TmpDir)
 }
 
